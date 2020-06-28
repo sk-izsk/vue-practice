@@ -35,12 +35,25 @@
     <ul>
       <li v-bind:key="cat" v-for="cat in cats">{{ cat }}</li>
     </ul>
+    <ul>
+      <li v-bind:key="cat" v-for="cat in cats">
+        {{ cat | kittyFly | capitalize }}
+      </li>
+    </ul>
+    <div>
+      {{ kityfy }}
+    </div>
+    <CatList :cats="cats" />
   </div>
 </template>
 
 <script>
+import CatList from "./CatList";
 export default {
   name: "Practice",
+  components: {
+    CatList,
+  },
   data() {
     return {
       greeting: "",
@@ -56,6 +69,35 @@ export default {
       this.cats = [...this.cats, this.newCat];
       this.newCat = "";
     },
+  },
+  filters: {
+    capitalize(item) {
+      return item.toUpperCase();
+    },
+    kittyFly(item) {
+      return `${item}fly`;
+    },
+  },
+  computed: {
+    kityfy() {
+      if (this.newCat.length > 5) {
+        return `${this.newCat}y`;
+      } else {
+        return null;
+      }
+    },
+  },
+  created() {
+    console.log("this is create");
+  },
+  mounted() {
+    console.log("this is mounted");
+  },
+  destroyed() {
+    console.log("this is destroyed");
+  },
+  updated() {
+    console.log("this is updated");
   },
 };
 </script>
